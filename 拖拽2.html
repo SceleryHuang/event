@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1{
+            height: 100px;
+            width: 100px;
+            background: chartreuse;
+            position: absolute;
+        }
+        #div2{
+            height: 500px;
+            width: 500px;
+            background:#cccccc;
+            position: relative;
+        }
+
+    </style>
+    <script>
+        window.onload = function(){
+            var oDiv = document.getElementById("div1");
+            var oDiv2 = document.getElementById("div2");
+
+
+            var disX = 0;
+            var disY = 0;
+
+            oDiv.onmousedown = function(ev){
+                var Event = ev||event;
+
+                disX = Event.clientX - oDiv.offsetLeft;
+                disY = Event.clientY - oDiv.offsetTop;
+
+                document.onmousemove = function (ev) {
+
+                    var Event = ev||event;
+                    var l = Event.clientX-disX;
+                    var t = Event.clientY-disY;
+
+                    if (l<0){
+                        l = 0;
+                    }else if(l>oDiv2.offsetWidth - oDiv.offsetWidth){
+                        // console.log(document.documentElement.clientWidth);
+                        // console.log(oDiv.offsetWidth);
+                        // console.log(l);
+                        l = oDiv2.offsetWidth - oDiv.offsetWidth;
+                    }
+
+
+                    if(t<0){
+                        t = 0;
+                    }else if(t>oDiv2.offsetHeight - oDiv.offsetHeight)
+                    {
+                        t = oDiv2.offsetHeight - oDiv.offsetHeight
+                    }
+
+                    oDiv.style.left = l + 'px';
+                    oDiv.style.top = t + 'px';
+                };
+                document.onmouseup = function () {
+                    document.onmousemove = null;
+                    document.onmouseup = null;
+
+                };
+                return false;
+
+
+            };
+
+
+
+
+
+
+
+        }
+
+
+    </script>
+</head>
+<body>
+
+<div id = "div2">
+    <div id = "div1">
+    </div>
+</div>
+</body>
+</html>

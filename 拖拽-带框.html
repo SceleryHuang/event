@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1{
+            height: 200px;
+            width: 200px;
+            background: chartreuse;
+            position: absolute;
+        }
+        .box{
+            border: dashed black 2px;
+            position: absolute;
+        }
+
+    </style>
+    <script>
+        window.onload = function(){
+            var oDiv = document.getElementById("div1");
+
+            var disX = 0;
+            var disY = 0;
+
+            oDiv.onmousedown = function(ev){
+                var Event = ev||event;
+
+                var Box = document.createElement("div");
+
+                Box.className ="box";
+                Box.style.height = oDiv.offsetHeight-2 +"px";
+                Box.style.width = oDiv.offsetWidth-2+"px";
+
+                Box.style.left = oDiv.offsetLeft+"px";
+                Box.style.top = oDiv.offsetTop +'px';
+
+                document.body.appendChild(Box);
+
+
+
+                disX = Event.clientX - oDiv.offsetLeft;
+                disY = Event.clientY - oDiv.offsetTop;
+
+                document.onmousemove = function (ev) {
+
+                    var Event = ev||event;
+                    var l = Event.clientX-disX;
+                    var t = Event.clientY-disY;
+
+                    if (l<0){
+                        l = 0;
+                    }else if(l>document.documentElement.clientWidth - oDiv.offsetWidth){
+                        // console.log(document.documentElement.clientWidth);
+                        // console.log(oDiv.offsetWidth);
+                        // console.log(l);
+                        l = document.documentElement.clientWidth - oDiv.offsetWidth;
+                    }
+
+
+                    if(t<0){
+                        t = 0;
+                    }else if(t>document.documentElement.clientHeight - oDiv.offsetHeight)
+                    {
+                        t = document.documentElement.clientHeight - oDiv.offsetHeight
+                    }
+
+                    Box.style.left = l + 'px';
+                    Box.style.top = t + 'px';
+                };
+                document.onmouseup = function () {
+                    document.onmousemove = null;
+                    document.onmouseup = null;
+
+                    oDiv.style.left = Box.offsetLeft +'px';
+                    oDiv.style.top = Box.offsetTop +'px';
+
+
+                    document.body.removeChild(Box);
+
+                };
+                return false;
+
+
+            };
+
+
+
+
+
+
+
+        }
+
+
+    </script>
+</head>
+<body>
+<div id = "div1">
+</div>
+</body>
+</html>

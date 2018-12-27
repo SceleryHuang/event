@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function MyAttachEvent(obj,ev,fn){
+            if(obj.attachEvent){
+                obj.attachEvent("on"+ev,fn);
+            }
+            else
+            {
+                obj.addEventListener(ev,fn,false) ;
+            }
+
+        }
+        window.onload = function () {
+            var mBtn = document.getElementById("btn1");
+
+
+            // mBtn.onclick = function () {
+            //     alert("hello");
+            // };
+            MyAttachEvent(mBtn,"click",function () {
+                alert("hello");
+            })
+        }
+
+    </script>
+</head>
+<body>
+<input type="button" value="按钮" id = "btn1">
+</body>
+</html>
