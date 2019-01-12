@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function setCookies(name,value,iDay){
+            var oDate = new Date();
+            oDate.setDate(oDate.getDate()+iDay);
+            document.cookie = name +"="+value+";expires = "+oDate;
+        }
+
+        function getCookies(name){
+            var arr = document.cookie.split("; ");
+
+            for(var i= 0;i<arr.length;i++){
+                var arr2 = arr[i].split('=');
+                console.log(arr2);
+                if (arr2[0] == name){
+                    return arr2[1];
+                }
+            }
+        }
+        function removeCookies(name){
+            setCookies(name,1,-1);
+        }
+
+        window.onload = function () {
+            var ofrom = document.getElementById("form1");
+            var oUser = document.getElementById("txt");
+
+            //oUser.value = ' ';
+            ofrom.onsubmit = function () {
+                setCookies('username',oUser.value,1);
+            };
+            oUser.value = getCookies('username');
+
+
+        }
+    </script>
+</head>
+<body>
+<form id="form1" action="拖拽2.html">
+    用户名：<input type="text" id = "txt"><br>
+    密 码：<input type="password" id = "pass"><br>
+    <input type="submit" value="提交"><br>
+</form>
+</body>
+</html>
